@@ -1,0 +1,88 @@
+{
+  "programme": "Quantic MSSE",
+  "weights": {
+    "exams": 0.6,
+    "smartcases": 0.1,
+    "projects": 0.3
+  },
+  "specialisations_required": 2,
+  "core_courses": {
+    "Managing Software Engineering": {
+      "smartcases": [
+        "Developing the Next Generation",
+        "A UX Recipe for Success",
+        "Binge-Watching in the Cloud",
+        "The Ethical Adventures of CatChat"
+      ],
+      "project": { "pass_mark": 2 }
+    },
+    "Web Application and Interface Design": {
+      "smartcases": [
+        "Launch Day",
+        "Elemental Wizardry",
+        "Como-ing Up with a Database",
+        "Step into Someone Else's Shoes"
+      ],
+      "project": { "pass_mark": 2 }
+    },
+    "Software Design and Architecture": {
+      "smartcases": [
+        "UML with U.M.L.",
+        "Object-ion Sustained",
+        "Panita's Paratha",
+        "The EntArch Awards",
+        "Pitter-Patterns",
+        "Project Silver Lining"
+      ],
+      "project": { "pass_mark": 2 }
+    },
+    "Software Testing and CI/CD": {
+      "smartcases": [
+        "Hanger Management with Git",
+        "JustTest for All!",
+        "Of Sun and Software",
+        "A Scurry of Squirrels"
+      ]
+    },
+    "Cloud Applications and Architectures": {
+      "smartcases": [
+        "Forecast: Cloudy All Day",
+        "Gone Fishin'",
+        "Perfectly Paired Pups",
+        "Serverless Sushi",
+        "Miriyam Had a Little Lambda"
+      ]
+    },
+    "Introduction to Machine Learning": {
+      "smartcases": [
+        "Day One at DeepCircuit",
+        "A Helping Hand at the Fusion Reactor",
+        "Making a Better Butter Business",
+        "Sigmoid, Dead Ahead!",
+        "Tree-mendous Innovations on the Farm",
+        "Cluster Crafting at Yellowstone",
+        "Deep Learning at the Robo-Ophthalmologist"
+      ],
+      "project": { "pass_mark": 2 }
+    },
+    "Artificial Intelligence Engineering": {
+      "smartcases": [
+        "AI Implementation in the Wild",
+        "RAGs to Riches",
+        "Fin-atic about Fine-Tuning"
+      ],
+      "project": { "pass_mark": 2 }
+    },
+    "Microservices Architectures": {
+      "smartcases": [
+        "Popcorn Paradise",
+        "We're Down with CI/CD",
+        "Hot Dang, It's Hee-Haw Humane!"
+      ]
+    }
+  },
+  "capstone": {
+    "project": { "pass_mark": 3 },
+    "presentation": { "pass_mark": 3 }
+  }
+}

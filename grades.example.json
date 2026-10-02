@@ -1,0 +1,106 @@
+{
+  "cohort": null,
+  "start_date": null,
+  "exclude_smartcases_before_start": false,
+  "core_courses": {
+    "Managing Software Engineering": {
+      "exam": null,
+      "project": null,
+      "smartcases": {
+        "Developing the Next Generation": { "score": null, "completed": null },
+        "A UX Recipe for Success": { "score": null, "completed": null },
+        "Binge-Watching in the Cloud": { "score": null, "completed": null },
+        "The Ethical Adventures of CatChat": { "score": null, "completed": null }
+      }
+    },
+    "Web Application and Interface Design": {
+      "exam": null,
+      "project": null,
+      "smartcases": {
+        "Launch Day": { "score": null, "completed": null },
+        "Elemental Wizardry": { "score": null, "completed": null },
+        "Como-ing Up with a Database": { "score": null, "completed": null },
+        "Step into Someone Else's Shoes": { "score": null, "completed": null }
+      }
+    },
+    "Software Design and Architecture": {
+      "exam": null,
+      "project": null,
+      "smartcases": {
+        "UML with U.M.L.": { "score": null, "completed": null },
+        "Object-ion Sustained": { "score": null, "completed": null },
+        "Panita's Paratha": { "score": null, "completed": null },
+        "The EntArch Awards": { "score": null, "completed": null },
+        "Pitter-Patterns": { "score": null, "completed": null },
+        "Project Silver Lining": { "score": null, "completed": null }
+      }
+    },
+    "Software Testing and CI/CD": {
+      "exam": null,
+      "smartcases": {
+        "Hanger Management with Git": { "score": null, "completed": null },
+        "JustTest for All!": { "score": null, "completed": null },
+        "Of Sun and Software": { "score": null, "completed": null },
+        "A Scurry of Squirrels": { "score": null, "completed": null }
+      }
+    },
+    "Cloud Applications and Architectures": {
+      "exam": null,
+      "smartcases": {
+        "Forecast: Cloudy All Day": { "score": null, "completed": null },
+        "Gone Fishin'": { "score": null, "completed": null },
+        "Perfectly Paired Pups": { "score": null, "completed": null },
+        "Serverless Sushi": { "score": null, "completed": null },
+        "Miriyam Had a Little Lambda": { "score": null, "completed": null }
+      }
+    },
+    "Introduction to Machine Learning": {
+      "exam": null,
+      "project": null,
+      "smartcases": {
+        "Day One at DeepCircuit": { "score": null, "completed": null },
+        "A Helping Hand at the Fusion Reactor": { "score": null, "completed": null },
+        "Making a Better Butter Business": { "score": null, "completed": null },
+        "Sigmoid, Dead Ahead!": { "score": null, "completed": null },
+        "Tree-mendous Innovations on the Farm": { "score": null, "completed": null },
+        "Cluster Crafting at Yellowstone": { "score": null, "completed": null },
+        "Deep Learning at the Robo-Ophthalmologist": { "score": null, "completed": null }
+      }
+    },
+    "Artificial Intelligence Engineering": {
+      "exam": null,
+      "project": null,
+      "smartcases": {
+        "AI Implementation in the Wild": { "score": null, "completed": null },
+        "RAGs to Riches": { "score": null, "completed": null },
+        "Fin-atic about Fine-Tuning": { "score": null, "completed": null }
+      }
+    },
+    "Microservices Architectures": {
+      "exam": null,
+      "smartcases": {
+        "Popcorn Paradise": { "score": null, "completed": null },
+        "We're Down with CI/CD": { "score": null, "completed": null },
+        "Hot Dang, It's Hee-Haw Humane!": { "score": null, "completed": null }
+      }
+    }
+  },
+  "specialisations": {
+    "Specialisation 1": {
+      "exam": null,
+      "smartcases": {
+        "SMARTCASE title": { "score": null, "completed": null }
+      }
+    },
+    "Specialisation 2": {
+      "exam": null,
+      "smartcases": {
+        "SMARTCASE title": { "score": null, "completed": null }
+      }
+    }
+  },
+  "capstone": {
+    "project": null,
+    "presentation": null
+  }
+}
