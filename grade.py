@@ -3,13 +3,13 @@
 # Quantic MSSE final grade calculator.
 #
 #   Exams                     60%   every concentration exam plus the best specialisation exams
-#   SMARTCASEs                10%   first attempt only, core courses plus every completed specialisation
+#   SMARTCASEs                10%   first attempt only, core courses plus every specialisation started
 #   Projects & Presentations  30%   pass/fail: a passing rubric score counts as 100, a fail as 0
 #
 # The programme rules live in curriculum.json and your scores in grades.json, so the script can tell a
 # grade you have not entered from one the programme does not ask for. Any missing core grade stops the
-# run. Specialisations are the exception: only the required number must be complete, and one without an
-# exam score is treated as in progress and left out entirely, SMARTCASEs included.
+# run. Specialisations are the exception: only the required number must be complete. One without an exam
+# score is in progress, so it has no exam to count, but every SMARTCASE already taken in it still counts.
 #
 # Electives do not count. SMARTCASEs completed before the programme start may be Foundations items, which
 # do not count either; exclude_smartcases_before_start in grades.json decides how they are treated.
@@ -106,19 +106,19 @@ def validate(curriculum: dict, grades: dict) -> list[str]:
 
     completed = []
     for name, spec in (grades.get("specialisations") or {}).items():
-        if spec.get("exam") is None:
-            continue    # in progress, so neither its exam nor its SMARTCASEs count
-        check_range(spec["exam"], 100, f"{name} exam", problems)
+        done = spec.get("exam") is not None     # without an exam it is in progress, which is allowed
+        if done:
+            check_range(spec["exam"], 100, f"{name} exam", problems)
+            completed.append(name)
         cases = spec.get("smartcases") or {}
-        if not cases:
+        if done and not cases:
             missing.setdefault(name, []).append("its SMARTCASEs")
         for title, entry in cases.items():
             score, _ = smartcase(entry)
-            if score is None:
-                missing.setdefault(name, []).append(f"SMARTCASE '{title}'")
-            else:
+            if score is not None:
                 check_range(score, 100, f"{name} SMARTCASE '{title}'", problems)
-        completed.append(name)
+            elif done:
+                missing.setdefault(name, []).append(f"SMARTCASE '{title}'")   # a finished one has them all
 
     required = curriculum["specialisations_required"]
     if len(completed) < required:
@@ -152,15 +152,18 @@ def exams_score(curriculum, grades, completed):
     return mean(core + [grades["specialisations"][s]["exam"] for s in counted]), counted
 
 
-def smartcase_score(curriculum, grades, completed):
+def smartcase_score(curriculum, grades):
     start = grades.get("start_date")
     cutoff = date.fromisoformat(start) if start and grades.get("exclude_smartcases_before_start") else None
     entries = [grades["core_courses"][c]["smartcases"][t] for c, r in curriculum["core_courses"].items() for t in r["smartcases"]]
-    entries += [e for s in completed for e in grades["specialisations"][s]["smartcases"].values()]
+    for spec in (grades.get("specialisations") or {}).values():
+        entries += (spec.get("smartcases") or {}).values()    # finished or not, every SMARTCASE taken counts
 
     counted, excluded = [], 0
     for entry in entries:
         score, when = smartcase(entry)
+        if score is None:
+            continue    # not yet taken, in a specialisation still in progress
         if cutoff and when and when < cutoff:
             excluded += 1
             continue
@@ -194,7 +197,7 @@ def main(argv=None) -> int:
 
     w = curriculum["weights"]
     exams, best = exams_score(curriculum, grades, completed)
-    smartcases, counted, excluded = smartcase_score(curriculum, grades, completed)
+    smartcases, counted, excluded = smartcase_score(curriculum, grades)
     projects, items, failed = projects_score(curriculum, grades)
     final = w["exams"] * exams + w["smartcases"] * smartcases + w["projects"] * projects
 
