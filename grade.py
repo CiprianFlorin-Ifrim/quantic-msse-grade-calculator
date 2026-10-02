@@ -134,10 +134,12 @@ def validate(curriculum: dict, grades: dict) -> list[str]:
         lines = []
         if missing:
             lines.append(f"Grades missing for: {', '.join(missing)}")
-            lines += [f"  {course}: {', '.join(gaps)}" for course, gaps in missing.items()]
+            for course, gaps in missing.items():
+                lines += ["", f"  {course}"] + [f"    - {gap}" for gap in gaps]    # one gap per line, grouped by course
         if problems:
+            lines += [""] if lines else []
             lines.append("Grades that cannot be used:")
-            lines += [f"  {p}" for p in problems]
+            lines += [""] + [f"  - {p}" for p in problems]
         raise GradeError("\n".join(lines))
     return completed
 
