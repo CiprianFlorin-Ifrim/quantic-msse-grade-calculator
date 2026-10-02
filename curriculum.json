@@ -83,6 +83,6 @@
   },
   "capstone": {
     "project": { "pass_mark": 3 },
-    "presentation": { "pass_mark": 3 }
+    "presentation": { "pass_mark": 2 }
   }
 }
