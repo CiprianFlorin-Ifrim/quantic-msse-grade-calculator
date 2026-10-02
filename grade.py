@@ -2,16 +2,16 @@
 #
 # Quantic MSSE final grade calculator.
 #
-#   Exams                     60%   every concentration exam plus the best specialisation exams
-#   SMARTCASEs                10%   first attempt only, core courses plus every specialisation started
+#   Exams                     60%   every concentration exam plus the best specialization exams
+#   SMARTCASEs                10%   first attempt only, core courses plus every specialization started
 #   Projects & Presentations  30%   pass/fail: a passing rubric score counts as 100, a fail as 0
 #
-# The programme rules live in curriculum.json and your scores in grades.json, so the script can tell a
-# grade you have not entered from one the programme does not ask for. Any missing core grade stops the
-# run. Specialisations are the exception: only the required number must be complete. One without an exam
+# The program rules live in curriculum.json and your scores in grades.json, so the script can tell a
+# grade you have not entered from one the program does not ask for. Any missing core grade stops the
+# run. Specializations are the exception: only the required number must be complete. One without an exam
 # score is in progress, so it has no exam to count, but every SMARTCASE already taken in it still counts.
 #
-# Electives do not count. SMARTCASEs completed before the programme start may be Foundations items, which
+# Electives do not count. SMARTCASEs completed before the program start may be Foundations items, which
 # do not count either; exclude_smartcases_before_start in grades.json decides how they are treated.
 #
 # Usage: python3 grade.py [grades.json] [--curriculum curriculum.json]
@@ -63,7 +63,7 @@ def check_range(value, top: float, label: str, problems: list[str]) -> None:
 
 
 def validate(curriculum: dict, grades: dict) -> list[str]:
-    """Return the completed specialisations, or raise listing everything that is missing or wrong."""
+    """Return the completed specializations, or raise listing everything that is missing or wrong."""
     missing: dict[str, list[str]] = {}     # course -> what is absent, kept in curriculum order
     problems: list[str] = []               # values present but unusable, and names the curriculum lacks
 
@@ -105,7 +105,7 @@ def validate(curriculum: dict, grades: dict) -> list[str]:
             check_range(capstone[item], 5, f"Capstone {item}", problems)
 
     completed = []
-    for name, spec in (grades.get("specialisations") or {}).items():
+    for name, spec in (grades.get("specializations") or {}).items():
         done = spec.get("exam") is not None     # without an exam it is in progress, which is allowed
         if done:
             check_range(spec["exam"], 100, f"{name} exam", problems)
@@ -120,9 +120,9 @@ def validate(curriculum: dict, grades: dict) -> list[str]:
             elif done:
                 missing.setdefault(name, []).append(f"SMARTCASE '{title}'")   # a finished one has them all
 
-    required = curriculum["specialisations_required"]
+    required = curriculum["specializations_required"]
     if len(completed) < required:
-        missing.setdefault("Specialisations", []).append(
+        missing.setdefault("Specializations", []).append(
             f"{required} must be complete with an exam score, found {len(completed)}"
         )
 
@@ -147,23 +147,23 @@ def validate(curriculum: dict, grades: dict) -> list[str]:
 
 def exams_score(curriculum, grades, completed):
     core = [grades["core_courses"][c]["exam"] for c in curriculum["core_courses"]]
-    ranked = sorted(completed, key=lambda s: grades["specialisations"][s]["exam"], reverse=True)
-    counted = ranked[: curriculum["specialisations_required"]]   # only the best ones count
-    return mean(core + [grades["specialisations"][s]["exam"] for s in counted]), counted
+    ranked = sorted(completed, key=lambda s: grades["specializations"][s]["exam"], reverse=True)
+    counted = ranked[: curriculum["specializations_required"]]   # only the best ones count
+    return mean(core + [grades["specializations"][s]["exam"] for s in counted]), counted
 
 
 def smartcase_score(curriculum, grades):
     start = grades.get("start_date")
     cutoff = date.fromisoformat(start) if start and grades.get("exclude_smartcases_before_start") else None
     entries = [grades["core_courses"][c]["smartcases"][t] for c, r in curriculum["core_courses"].items() for t in r["smartcases"]]
-    for spec in (grades.get("specialisations") or {}).values():
+    for spec in (grades.get("specializations") or {}).values():
         entries += (spec.get("smartcases") or {}).values()    # finished or not, every SMARTCASE taken counts
 
     counted, excluded = [], 0
     for entry in entries:
         score, when = smartcase(entry)
         if score is None:
-            continue    # not yet taken, in a specialisation still in progress
+            continue    # not yet taken, in a specialization still in progress
         if cutoff and when and when < cutoff:
             excluded += 1
             continue
@@ -206,8 +206,8 @@ def main(argv=None) -> int:
     print(f"Projects           {projects:6.2f}%  x {w['projects']} = {w['projects'] * projects:5.2f}")
     print(f"Final              {final:6.2f}%")
 
-    exam_of = {s: grades["specialisations"][s]["exam"] for s in best}
-    print("\nSpecialisation exams counted: " + ", ".join(f"{s} ({score:.2f})" for s, score in exam_of.items()))
+    exam_of = {s: grades["specializations"][s]["exam"] for s in best}
+    print("\nSpecialization exams counted: " + ", ".join(f"{s} ({score:.2f})" for s, score in exam_of.items()))
     note = f", {excluded} completed before the start date left out" if excluded else ""
     print(f"SMARTCASEs counted: {counted}{note}")
     print(f"Projects and presentations: {items}")

@@ -1,11 +1,11 @@
 {
-  "programme": "Quantic MSSE",
+  "program": "Quantic MSSE",
   "weights": {
     "exams": 0.6,
     "smartcases": 0.1,
     "projects": 0.3
   },
-  "specialisations_required": 2,
+  "specializations_required": 2,
   "core_courses": {
     "Managing Software Engineering": {
       "smartcases": [

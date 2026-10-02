@@ -85,14 +85,14 @@
       }
     }
   },
-  "specialisations": {
-    "Specialisation 1": {
+  "specializations": {
+    "Specialization 1": {
       "exam": null,
       "smartcases": {
         "SMARTCASE title": { "score": null, "completed": null }
       }
     },
-    "Specialisation 2": {
+    "Specialization 2": {
       "exam": null,
       "smartcases": {
         "SMARTCASE title": { "score": null, "completed": null }
